@@ -12,19 +12,6 @@ class UserDetail(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        user = User.objects.get(pk=pk)
-        serializer = UserSerializer(user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk):
-        user = User.objects.get(pk=pk)
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
 
 class RecipeDetail(APIView):
     def get(self, request, pk):
@@ -32,75 +19,38 @@ class RecipeDetail(APIView):
         serializer = RecipeSerializer(recipe)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        recipe = Recipe.objects.get(pk=pk)
-        serializer = RecipeSerializer(recipe, data=request.data)
+
+class CreateRecipe(APIView):
+    def post(self, request):
+        serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        recipe = Recipe.objects.get(pk=pk)
-        recipe.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class IngredientDetail(APIView):
-    def get(self, request, pk):
-        ingredient = Ingredient.objects.get(pk=pk)
-        serializer = IngredientSerializer(ingredient)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        ingredient = Ingredient.objects.get(pk=pk)
-        serializer = IngredientSerializer(ingredient, data=request.data)
+class CreateIngredient(APIView):
+    def post(self, request):
+        serializer = IngredientSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        ingredient = Ingredient.objects.get(pk=pk)
-        ingredient.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class RatingDetail(APIView):
-    def get(self, request, pk):
-        rating = Rating.objects.get(pk=pk)
-        serializer = RatingSerializer(rating)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        rating = Rating.objects.get(pk=pk)
-        serializer = RatingSerializer(rating, data=request.data)
+class CreateRating(APIView):
+    def post(self, request):
+        serializer = RatingSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        rating = Rating.objects.get(pk=pk)
-        rating.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class CommentDetail(APIView):
-    def get(self, request, pk):
-        comment = Comment.objects.get(pk=pk)
-        serializer = CommentSerializer(comment)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        comment = Comment.objects.get(pk=pk)
-        serializer = CommentSerializer(comment, data=request.data)
+class CreateComment(APIView):
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk):
-        comment = Comment.objects.get(pk=pk)
-        comment.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
